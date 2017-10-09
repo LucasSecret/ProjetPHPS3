@@ -28,9 +28,17 @@ if(isset($_POST['username']) && isset($_POST['password']))
     }
 
     else
+    {
+        session_destroy();
         header('Location:../index.php?error_signUp=existingUsername');
+
+    }
 }
 
 else
+{
+    session_destroy();
     header('Location:../index.php?error_signUp=fieldEmpty');
+
+}
 ?>

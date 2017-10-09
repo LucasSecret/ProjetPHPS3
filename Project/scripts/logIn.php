@@ -27,6 +27,10 @@ if(isset($_POST['username']) && isset($_POST['password']))
         header('Location:../admin/adminIndex.php');
 
     else
+    {
+        session_destroy();
         header('Location:../index.php?error_connexion=noIdentified');
+    }
+
 }
 ?>

@@ -7,7 +7,7 @@
  */
     session_start();
 
-    if($_SESSION['connected'] =! 1)
+    if($_SESSION['connected'] != 1)
     {
         session_destroy();
         header('Location:../index.php?error_connexion=NoConnected');
