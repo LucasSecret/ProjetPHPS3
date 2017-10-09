@@ -20,7 +20,7 @@
         <input type="password" name="password" placeholder="Password">
         <input type="submit" name="submit" class="button" value="Subscribe">
     </form>
-    <a href="inscription.php" id="signInLink">Not registered yet ?</a>
+    <a href="signUp.html" id="signInLink">Not registered yet ?</a>
 
 </div>
 

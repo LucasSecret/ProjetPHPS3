@@ -96,6 +96,7 @@ class SQLServices
     function insertData($table, $values)
     {
         foreach($values as $value) {
+
             if (!is_array($value))
                 continue;
 
@@ -103,6 +104,7 @@ class SQLServices
 
             $query .= self::formatDataForKeyInsertion($value);
             $query .= "VALUES";
+
             $query .= self::formatDataForValueInsertion($value);
 
             echo $query;
