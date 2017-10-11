@@ -7,6 +7,7 @@
  */
 
 //DB variables
+
 $hostnameDB = "localhost";
 $userDB = "root";
 $passwordDB = '';
