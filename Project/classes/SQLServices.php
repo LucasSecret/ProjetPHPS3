@@ -189,22 +189,5 @@ class SQLServices
     }
 
 
-    function displayAllImage()
-    {
-        $imageName = $this->getData('image', 'name');
-        foreach ($imageName as $key => $line )
-        {
-            foreach ($line as $column => $value_column)
-            {
-                    echo "<img src=\"../images_copyright/$value_column\" alt=\"$value_column\" >";
-            }
-        }
-    }
-
-
-
-
-
-
 
 }
