@@ -11,23 +11,31 @@ include('../classes/SQLServices.php');
 initVariables();
 
 // Check if image file is a actual image or fake image
-checkThereIsImage();
+if(!checkThereIsImage())
+    header("Location:../admin/adminIndex.php?error=errorNoImage");
+
 // Check if file already exists
-checkExistingFile();
+elseif(!checkExistingFile())
+    header("Location:../admin/adminIndex.php?error=errorExistingFile");
+
 // Check file size
-checkImageSize();
+elseif(!checkImageSize())
+    header('Location:../admin/adminIndex.php?error=errorSize');
+
 // Allow certain file formats
-checkImageFormat();
+elseif(!checkImageFormat())
+    header('Location:../admin/adminIndex.php?error=errorFormat');
 
 // If there are no errors, then upload image
-uploadImage();
+else
+    uploadImage();
 
 function initVariables()
 {
     include('../includes/variables.inc.php');
     global $target_dir, $target_file, $imageFileType, $sqlService;
 
-    $target_dir = "../images_copyright/";
+    $target_dir = "C://Users/sntri/Documents/IUT/2eme_Annee/PHP/ProjetPHPS3/Project/images_copyright/";
     $target_file = $target_dir . basename($_FILES['pictureToUpload']["name"]);
     $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
@@ -41,7 +49,9 @@ function checkThereIsImage()
    {
        $check = getimagesize($_FILES['pictureToUpload']["tmp_name"]);
        if($check == false)
-           header("Location:../admin/adminIndex.php?error=errorNoImage");
+           return false;
+
+       return true;
    }
 }
 
@@ -50,12 +60,16 @@ function checkExistingFile()
     global $target_file;
 
     if (file_exists($target_file))
-        header('Location:../admin/adminIndex.php?error=errorExistingFile');
+        return false;
+
+    return true;
 }
 function checkImageSize()
 {
    if ($_FILES['pictureToUpload']["size"] > 500000)
-        header('Location:../admin/adminIndex.php?error=errorSize');
+       return false;
+
+   return true;
 }
 
 function checkImageFormat()
@@ -63,7 +77,9 @@ function checkImageFormat()
     global $imageFileType;
 
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg")
-        header('Location:../admin/adminIndex.php?error=errorFormat');
+        return false;
+
+    return true;
 }
 
 function uploadImage()
@@ -71,7 +87,7 @@ function uploadImage()
     global $target_file, $sqlService, $imageFileType;
 
     if (!(move_uploaded_file($_FILES['pictureToUpload']["tmp_name"], $target_file)))
-        header('Location:../admin/adminIndex.php?error=errorUpload');
+        header("Location:../admin/adminIndex.php?error=errorUpload");
 
     else
     {
@@ -83,7 +99,7 @@ function uploadImage()
                   )));
 
         add_copyright($_FILES['pictureToUpload']['name'], $imageFileType);
-        header('Location:../admin/adminIndex.php?error=noError');
+        header("Location:../admin/adminIndex.php?error=noError?$target_file");
     }
 }
 
@@ -109,7 +125,10 @@ function add_copyright($fileName, $imageFileType)
 
     unlink ("../images_copyright/$fileName");
 
-    imagejpeg($photo, "../images_copyright/$fileName"); //Enregistrement de la photo
+    if($imageFileType == "png")
+        imagepng($photo, "../images_copyright/$fileName"); //Enregistrement de la photo
+    else
+        imagejpeg($photo, "../images_copyright/$fileName"); //Enregistrement de la photo
 
     imagedestroy($photo);
 }
