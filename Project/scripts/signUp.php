@@ -15,7 +15,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if(is_null($dbHandler->isRegistered($username, $password)))
+    if(!($dbHandler->isRegistered($username, $password)))
     {
         $dbHandler->insertData('user', array(
             array(
@@ -24,13 +24,13 @@ if(isset($_POST['username']) && isset($_POST['password']))
                 'admin' => 0
             )
         ));
-        header('Location:../index.php?error_signUp=no_error');
+        header('Location:../signUp.html?error_signUp=no_error');
     }
 
     else
     {
         session_destroy();
-        header('Location:../index.php?error_signUp=existingUsername');
+        header('Location:../signUp.html?error_signUp=existingUsername');
 
     }
 }
@@ -38,7 +38,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
 else
 {
     session_destroy();
-    header('Location:../index.php?error_signUp=fieldEmpty');
+    header('Location:../signUp.html?error_signUp=fieldEmpty');
 
 }
 ?>

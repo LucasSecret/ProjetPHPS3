@@ -5,6 +5,10 @@
  * Date: 09/10/2017
  * Time: 10:11
  */
+
+include('../classes/SQLServices.php');
+include('../includes/variables.inc.php');
+
 session_start();
 
 if($_SESSION['connected'] != 1)
@@ -13,7 +17,7 @@ if($_SESSION['connected'] != 1)
     header('Location:../index.php?error_connexion=NoConnected');
 }
 
-echo 'Bonjour '.$_SESSION['username'].', vous etes admin c\'est cool';
+$sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
 ?>
 
 <!DOCTYPE html>
@@ -22,5 +26,16 @@ echo 'Bonjour '.$_SESSION['username'].', vous etes admin c\'est cool';
 </head>
 <body>
 
+    <form method="post" action="../scripts/uploadImage.php" style="width: 200px;" enctype="multipart/form-data">
+        <label>Upload Photo</label>
+        <input type="file" name="pictureToUpload" >
+        <label for="price">Price</label>
+        <input type="text" name="price" >
+        <input type="submit" name="submit" value="Post Picture" >
+    </form>
+
+    <div>
+        <?php $sqlService->displayAllImage(); ?>
+    </div>
 </body>
 </html>
