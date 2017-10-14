@@ -1,0 +1,30 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: sntri
+ * Date: 14/10/2017
+ * Time: 14:19
+ */
+
+include('../classes/SQLServices.php');
+include('../includes/variables.inc.php');
+
+$sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
+
+$imagesSelectedGET = $_GET['selectedImages'];
+$listOfSelectedImage = preg_split('[,]', $imagesSelectedGET);
+var_dump($listOfSelectedImage);
+
+foreach ($listOfSelectedImage as $key => $imageSelected)
+{
+    $idStringLength = stripos($imageSelected, '._image'); //Find the 'id' string position in the image name
+
+    $imageSelected = substr($imageSelected, 0,$idStringLength); //Delete the 'id' attribute string from the image name
+
+    $sqlService->removeData('image',"name = '$imageSelected'", 1);
+    echo $imageSelected;
+    unlink ("../images_copyright/$imageSelected");
+}
+
+header('Location:../admin/adminIndex.php');
+?>

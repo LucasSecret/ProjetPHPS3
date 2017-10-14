@@ -117,7 +117,7 @@ class SQLServices
         $query = "DELETE FROM $table ";
 
         if (isset($optionWhere)) {
-            $query .= "WHERE $optionWhere";
+            $query .= "WHERE $optionWhere ";
         }
         if (isset($limit)) {
             $query .= "LIMIT $limit";
@@ -194,8 +194,7 @@ class SQLServices
         foreach ($imageName as $key => $line )
         {
             foreach ($line as $column => $value_column)
-                echo "<img src=\"../images_copyright/$value_column\" alt=\"$value_column\" >";
-
+                echo "<img src=\"../images_copyright/$value_column\" alt=\"$value_column\" id=\"$value_column._image\" >";
         }
     }
 

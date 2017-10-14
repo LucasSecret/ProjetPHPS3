@@ -23,6 +23,8 @@ $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
 <!DOCTYPE html>
 <html>
 <head>
+    <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../js/selectImageOnClick.js"></script>
 </head>
 <body>
 
@@ -36,6 +38,10 @@ $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
 
     <div>
         <?php $sqlService->displayAllImage(); ?>
+    </div>
+
+    <div>
+        <input type="submit" id="deletePicture" value="Delete">
     </div>
 </body>
 </html>
