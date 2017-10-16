@@ -13,7 +13,7 @@ $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
 
 $imagesSelectedGET = $_GET['selectedImages'];
 $listOfSelectedImage = preg_split('[,]', $imagesSelectedGET);
-var_dump($listOfSelectedImage);
+
 
 foreach ($listOfSelectedImage as $key => $imageSelected)
 {
@@ -21,7 +21,7 @@ foreach ($listOfSelectedImage as $key => $imageSelected)
 
     $imageSelected = substr($imageSelected, 0,$idStringLength); //Delete the 'id' attribute string from the image name
 
-    $sqlService->removeData('image',"name = '$imageSelected'", 1);
+    $sqlService->removeData('image',"name_image = '$imageSelected'", 1);
     echo $imageSelected;
     unlink ("../images_copyright/$imageSelected");
 }

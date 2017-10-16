@@ -93,13 +93,13 @@ function uploadImage()
     {
         $sqlService->insertData('image', array(
             array(
-                  'name' => $_FILES['pictureToUpload']["name"],
+                  'name_image' => $_FILES['pictureToUpload']["name"],
                   'extension' => $imageFileType,
                   'price' => $_POST['price']
                   )));
 
         add_copyright($_FILES['pictureToUpload']['name'], $imageFileType);
-        header("Location:../admin/adminIndex.php?error=noError?$target_file");
+        header("Location:../admin/adminIndex.php?error=noError");
     }
 }
 

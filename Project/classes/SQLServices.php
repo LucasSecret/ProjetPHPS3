@@ -188,14 +188,109 @@ class SQLServices
         return true;
     }
 
-    function displayAllImage()
+
+    function displayImageWithKeyword($idKeywords = null)
     {
-        $imageName = $this->getData('image', 'name');
-        foreach ($imageName as $key => $line )
+
+        if(!is_null($idKeywords))
         {
-            foreach ($line as $column => $value_column)
-                echo "<img src=\"../images_copyright/$value_column\" alt=\"$value_column\" id=\"$value_column._image\" >";
+            $tableJoin = "image i JOIN image_keyword ik ON i.id_image = ik.id_image
+                            JOIN keyword k ON ik.id_keyword = k.id_keyword";
+
+            $keywordsArray = explode(',', $idKeywords); //Delete the ',' between each id_keywords and stock them in array
+
+            if(sizeof($keywordsArray) > 1) //If there are several keywords given in parameters
+            {
+                $cptKeywords = sizeof($keywordsArray);
+                $whereClause = "";
+                foreach ($keywordsArray as $key => $idKeyword)
+                {
+
+                    if($cptKeywords<1 || $cptKeywords == sizeof($keywordsArray))
+                        $whereClause .= "ik.id_keyword = $idKeyword ";
+                    else
+                        $whereClause .= "OR ik.id_keyword = $idKeyword ";
+
+                    $cptKeywords-- ;
+                }
+
+
+                $optionsArray = ["where" => $whereClause];
+
+                $imagesName = $this->getData($tableJoin, 'distinct name_image', $optionsArray);
+
+                if(is_array($imagesName))
+                {
+                    foreach ($imagesName as $key => $line)
+                    {
+                        foreach ($line as $column => $imageName){
+                            echo "<img src=\"../images_copyright/$imageName\" alt=\"$imageName\" id=\"$imageName._image\" >";
+                        }
+                    }
+                }
+
+            }
+
+            else //If there is only one keyword given in parameters
+            {
+                $optionsArray = ["where" => "ik.id_keyword = $idKeywords"];
+
+                $imagesName = $this->getData($tableJoin, 'name_image', $optionsArray);
+
+                if(is_array($imagesName)) //If there are several images returned by the query
+                {
+                    foreach ($imagesName as $key => $line)
+                    {
+                        foreach ($line as $column => $imageName){
+                            echo "<img src=\"../images_copyright/$imageName\" alt=\"$imageName\" id=\"$imageName._image\" >";
+                        }
+                    }
+                }
+
+                else
+                {
+                    echo "<img src=\"../images_copyright/$imagesName\" alt=\"$imagesName\" id=\"$imagesName._image\" >";
+                }
+
+            }
+
+
         }
+
+        else //If no keywords in parameters
+        {
+            $imageName = $this->getData('image', 'name_image');
+
+            if (!is_null($imageName)) {
+                foreach ($imageName as $key => $line) {
+                    foreach ($line as $column => $value_column)
+                        echo "<img src=\"../images_copyright/$value_column\" alt=\"$value_column\" id=\"$value_column._image\" >";
+                }
+            }
+        }
+    }
+
+
+    function displayCheckbox()
+    {
+        $checkBoxesName = $this->getData('keyword', 'id_keyword, name_keyword');
+        echo '<br><br>';
+
+        if(!is_null($checkBoxesName))
+        {
+            foreach ($checkBoxesName as $key => $line)
+            {
+                foreach ($line as $column => $value_column)
+                {
+                    if($column == 'id_keyword')
+                        $id = $value_column;
+                    else
+                        $keyword = $value_column;
+                }
+                echo "<input type=\"checkbox\" name=" . "\"$id" . "_checkbox\" > $keyword";
+            }
+        }
+
     }
 
 

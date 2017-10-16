@@ -37,11 +37,15 @@ $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
     </form>
 
     <div>
-        <?php $sqlService->displayAllImage(); ?>
+        <?php
+            $sqlService->displayImageWithKeyword();
+        ?>
+
+        <div>
+            <input type="submit" id="deletePicture" value="Delete">
+        </div>
     </div>
 
-    <div>
-        <input type="submit" id="deletePicture" value="Delete">
-    </div>
+
 </body>
 </html>

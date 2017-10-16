@@ -18,6 +18,12 @@
     echo 'Vous etes un utilisateur enregistré c\'est cool';
 
     $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
+
+    if(isset($_GET['keywords']))
+        $keywords = substr($_GET['keywords'],1); //Delete 1st character which is ','
+
+    else
+        $keywords = " ";
 ?>
     
 <!DOCTYPE html>
@@ -25,8 +31,19 @@
 <head>
 </head>
 <body>
-    <?php
-        $sqlService->displayAllImage();
-    ?>
+    <div>
+        <form method = "post" action="../scripts/returnKeywordSelected.php">
+            <?php
+                $sqlService->displayCheckbox();
+            ?>
+            <input type="submit" name="submit" value="Display">
+        </form>
+    </div>
+
+    <div>
+        <?php
+            $sqlService->displayImageWithKeyword($keywords);
+        ?>
+    </div>
 </body>
 </html>
