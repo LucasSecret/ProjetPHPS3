@@ -33,10 +33,14 @@ $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
         <input type="file" name="pictureToUpload" >
         <label for="price">Price</label>
         <input type="text" name="price" >
+
+        <?php
+            $sqlService->displayCheckbox();
+        ?>
         <input type="submit" name="submit" value="Post Picture" >
     </form>
 
-    <div>
+    <div style="margin-top: 50px;">
         <?php
             $sqlService->displayImageWithKeyword();
         ?>

@@ -98,6 +98,8 @@ function uploadImage()
                   'price' => $_POST['price']
                   )));
 
+
+        insertKeywordsInDB($sqlService);
         add_copyright($_FILES['pictureToUpload']['name'], $imageFileType);
         header("Location:../admin/adminIndex.php?error=noError");
     }
@@ -133,5 +135,56 @@ function add_copyright($fileName, $imageFileType)
     imagedestroy($photo);
 }
 
+function keywordsSelected($sqlService)
+{
+   $checkBoxesName = $sqlService->getData('keyword', 'id_keyword');
+   $keywordsSelected = "";
 
+    foreach ($checkBoxesName as $key => $line)
+    {
+        foreach ($line as $column => $id_checkBox)
+        {
+            if(isset($_POST["$id_checkBox"."_checkbox"]))
+                $keywordsSelected .= ",$id_checkBox";
+        }
+
+    }
+    $keywordsSelected = substr($keywordsSelected,1);
+    $keywordsSelected = explode(',', $keywordsSelected);
+
+    return $keywordsSelected;
+}
+
+
+function insertKeywordsInDB($sqlService)
+{
+
+    $imageID = $sqlService->getData('image', 'id_image', array("where" => "name_image = '".$_FILES["pictureToUpload"]["name"]."'"));
+    $keywordArray = keywordsSelected($sqlService);
+
+    $imageID = extractValueFromArray($imageID);
+
+    foreach ($keywordArray as $key => $keyword)
+    {
+
+            $sqlService->insertData('image_keyword', array(
+                array(
+                    'id_image' => $imageID,
+                    'id_keyword' => $keyword,
+                )));
+
+    }
+
+}
+
+function extractValueFromArray($array)
+{
+    foreach ($array as $key => $value)
+    {
+        foreach ($value as $key_value => $value_value)
+            return $value_value;
+    }
+}
 ?>
+
+

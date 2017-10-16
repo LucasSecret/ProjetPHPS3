@@ -107,8 +107,6 @@ class SQLServices
 
             $query .= self::formatDataForValueInsertion($value);
 
-            echo $query;
-
             $this->db->exec($query);
         }
     }
@@ -192,7 +190,7 @@ class SQLServices
     function displayImageWithKeyword($idKeywords = null)
     {
 
-        if(!is_null($idKeywords))
+        if(!empty($idKeywords))
         {
             $tableJoin = "image i JOIN image_keyword ik ON i.id_image = ik.id_image
                             JOIN keyword k ON ik.id_keyword = k.id_keyword";
@@ -261,8 +259,10 @@ class SQLServices
         {
             $imageName = $this->getData('image', 'name_image');
 
+
             if (!is_null($imageName)) {
-                foreach ($imageName as $key => $line) {
+                foreach ($imageName as $key => $line)
+                {
                     foreach ($line as $column => $value_column)
                         echo "<img src=\"../images_copyright/$value_column\" alt=\"$value_column\" id=\"$value_column._image\" >";
                 }
@@ -274,7 +274,6 @@ class SQLServices
     function displayCheckbox()
     {
         $checkBoxesName = $this->getData('keyword', 'id_keyword, name_keyword');
-        echo '<br><br>';
 
         if(!is_null($checkBoxesName))
         {

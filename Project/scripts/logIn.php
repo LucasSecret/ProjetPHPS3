@@ -18,7 +18,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     $_SESSION['password'] = $_POST['password'];
 
     if($dbHandler->isRegistered($_SESSION['username'], $_SESSION['password']))
-        header('Location:../user/userIndex.php');
+        header('Location:../user/userIndex.php?keywords=');
 
 
     elseif($dbHandler->isAdmin($_SESSION['username'], $_SESSION['password']))
