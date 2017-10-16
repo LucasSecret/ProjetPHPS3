@@ -178,7 +178,7 @@ class SQLServices
         $statement = "SELECT count(*) FROM user ";
         $statement .= "WHERE username = '".$username."' ";
         $statement .= "AND password = '".md5($password)."' ";
-        $statement .= "AND admin = '0'";
+        $statement .= "AND admin = 0";
         echo $statement;
         $query = $this->db->query($statement);
 

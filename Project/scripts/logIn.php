@@ -18,10 +18,8 @@ if(isset($_POST['username']) && isset($_POST['password']))
     $_SESSION['password'] = $_POST['password'];
 
     if($dbHandler->isRegistered($_SESSION['username'], $_SESSION['password']))
-    {
-        session_destroy();
         header('Location:../user/userIndex.php');
-    }
+
 
     elseif($dbHandler->isAdmin($_SESSION['username'], $_SESSION['password']))
         header('Location:../admin/adminIndex.php');

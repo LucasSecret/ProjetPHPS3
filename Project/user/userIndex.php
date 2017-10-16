@@ -6,6 +6,8 @@
  * Time: 10:57
  */
     session_start();
+    include('../includes/variables.inc.php');
+    include('../classes/SQLServices.php');
 
     if($_SESSION['connected'] != 1)
     {
@@ -14,6 +16,8 @@
     }
 
     echo 'Vous etes un utilisateur enregistré c\'est cool';
+
+    $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
 ?>
     
 <!DOCTYPE html>
@@ -21,6 +25,8 @@
 <head>
 </head>
 <body>
-
+    <?php
+        $sqlService->displayAllImage();
+    ?>
 </body>
 </html>
