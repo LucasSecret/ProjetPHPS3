@@ -1,10 +1,4 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: sntri
- * Date: 09/10/2017
- * Time: 11:08
- */
+<?php //TODO: Evolve Sign UP
 
 include('../classes/SQLServices.php');
 include('../includes/variables.inc.php');
@@ -26,19 +20,14 @@ if(isset($_POST['username']) && isset($_POST['password']))
         ));
         header('Location:../index.php?error_signUp=no_error');
     }
-
     else
     {
         session_destroy();
         header('Location:../index.php?error_signUp=existingUsername');
-
     }
 }
 
-else
-{
-    session_destroy();
-    header('Location:../index.php?error_signUp=fieldEmpty');
+session_destroy();
+header('Location:../index.php?error_signUp=fieldEmpty');
 
-}
 ?>

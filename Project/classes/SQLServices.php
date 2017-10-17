@@ -156,14 +156,13 @@ class SQLServices
         }
     }
 
-    
+    // TODO: update DB isAdmin - injection SQL - simple quote
     function isAdmin($username, $password)
     {
         $statement = "SELECT count(*) FROM user ";
-        $statement .= "WHERE username = '".$username."' ";
-        $statement .= "AND password = '".md5($password)."' ";
+        $statement .= "WHERE username = $username ";
+        $statement .= "AND password = '" . md5($password) . "'' ";
         $statement .= "AND admin = 1";
-        echo $statement;
 
         $query = $this->db->query($statement);
 
@@ -176,10 +175,10 @@ class SQLServices
     function isRegistered($username, $password)
     {
         $statement = "SELECT count(*) FROM user ";
-        $statement .= "WHERE username = '".$username."' ";
+        $statement .= "WHERE username = $username ";
         $statement .= "AND password = '".md5($password)."' ";
-        $statement .= "AND admin = '0'";
-        echo $statement;
+        $statement .= "AND admin = 0";
+
         $query = $this->db->query($statement);
 
         if ($query->fetchColumn() == 0)
@@ -187,7 +186,4 @@ class SQLServices
 
         return true;
     }
-
-
-
 }

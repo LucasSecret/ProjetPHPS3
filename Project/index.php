@@ -14,7 +14,7 @@
 
 <!-- Formulaire de Connexion -->
 <div id="coForm_container">
-    <form method="post" action="scripts/logIn.php">
+    <form method="post" action="scripts/login.php">
         <legend>Log-In</legend>
         <input type="text" name="username" placeholder="Username">
         <input type="password" name="password" placeholder="Password">
