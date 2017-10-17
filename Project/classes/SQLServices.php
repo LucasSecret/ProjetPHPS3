@@ -96,6 +96,7 @@ class SQLServices
     function insertData($table, $values)
     {
         foreach($values as $value) {
+
             if (!is_array($value))
                 continue;
 
@@ -103,6 +104,7 @@ class SQLServices
 
             $query .= self::formatDataForKeyInsertion($value);
             $query .= "VALUES";
+
             $query .= self::formatDataForValueInsertion($value);
 
             echo $query;
@@ -154,4 +156,35 @@ class SQLServices
         }
     }
 
+    // TODO: update DB isAdmin - injection SQL - simple quote
+    function isAdmin($username, $password)
+    {
+        $statement = "SELECT count(*) FROM user ";
+        $statement .= "WHERE username = '$username' ";
+        $statement .= "AND password = '" . md5($password) . "' ";
+        $statement .= "AND admin = 1";
+        echo $statement;
+        $query = $this->db->query($statement);
+
+        if ($query->fetchColumn() == 0)
+            return false;
+
+        return true;
+    }
+
+    function isRegistered($username, $password)
+    {
+        $statement = "SELECT count(*) FROM user ";
+        $statement .= "WHERE username = '$username' ";
+        $statement .= "AND password = '".md5($password)."' ";
+        $statement .= "AND admin = 0";
+        echo $statement;
+
+        $query = $this->db->query($statement);
+
+        if ($query->fetchColumn() == 0)
+            return false;
+
+        return true;
+    }
 }
