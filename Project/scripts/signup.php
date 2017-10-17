@@ -9,7 +9,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if(is_null($dbHandler->isRegistered($username, $password)))
+    if(!($dbHandler->isRegistered($username, $password)))
     {
         $dbHandler->insertData('user', array(
             array(
@@ -27,7 +27,9 @@ if(isset($_POST['username']) && isset($_POST['password']))
     }
 }
 
-session_destroy();
-header('Location:../login.html?error_signUp=fieldEmpty');
-
+else
+{
+    session_destroy();
+    header('Location:../login.html?error_signUp=fieldEmpty');
+}
 ?>

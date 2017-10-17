@@ -24,6 +24,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     }
     elseif ($dbHandler->isAdmin($_SESSION['username'], $_SESSION['password']))
     {
+        $_SESSION['connected'] = 1;
         header('Location:../admin/admin_panel.php');
     }
     else
@@ -32,6 +33,9 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     }
 }
 
-header('Location: ../login.html');
+else
+{
+    header('Location: ../login.html');
+}
 
 ?>
