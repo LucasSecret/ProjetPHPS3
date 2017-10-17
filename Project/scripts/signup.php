@@ -18,16 +18,16 @@ if(isset($_POST['username']) && isset($_POST['password']))
                 'admin' => 0
             )
         ));
-        header('Location:../index.php?error_signUp=no_error');
+        header('Location:../login.html?error_signUp=no_error');
     }
     else
     {
         session_destroy();
-        header('Location:../index.php?error_signUp=existingUsername');
+        header('Location:../login.html?error_signUp=existingUsername');
     }
 }
 
 session_destroy();
-header('Location:../index.php?error_signUp=fieldEmpty');
+header('Location:../login.html?error_signUp=fieldEmpty');
 
 ?>

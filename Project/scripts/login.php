@@ -28,10 +28,10 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     }
     else
     {
-        header('Location:../index.php?error_connexion=noIdentified');
+        header('Location:../login.html?error_connexion=noIdentified');
     }
 }
 
-header('Location: ../index.php');
+header('Location: ../login.html');
 
 ?>
