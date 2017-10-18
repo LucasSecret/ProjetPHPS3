@@ -1,8 +1,8 @@
+
 var imagesSelected_array = new Array();
 
 $(document).ready(function(){
     document.getElementById('deletePicture').disabled = true;
-
 
     $("img").click(function(){
         if($(this).attr("style") == 'border: 2px solid blue;')

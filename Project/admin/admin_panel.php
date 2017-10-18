@@ -6,6 +6,7 @@
  * Time: 10:11
  */
 include('../classes/SQLServices.php');
+include('../classes/ImageHandler.php');
 include('../includes/variables.inc.php');
 
 session_start();
@@ -16,6 +17,7 @@ if($_SESSION['connected'] != 1)
 }
 
 $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
+$imageHandler = new ImageHandler($sqlService);
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +25,7 @@ $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
 <head>
     <script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../js/selectImageOnClick.js"></script>
+<!--    <script>alert('Ah');</script>-->
 </head>
 <body>
 
@@ -33,14 +36,14 @@ $sqlService = new SQLServices($hostnameDB, $dbName, $userDB, $passwordDB);
     <input type="text" name="price" >
 
     <?php
-    $sqlService->displayCheckbox();
+    $imageHandler->displayCheckbox();
     ?>
     <input type="submit" name="submit" value="Post Picture" >
 </form>
 
-<div style="margin-top: 50px;">
+<div style="margin-top: 20px">
     <?php
-    $sqlService->displayImageWithKeyword();
+    $imageHandler->displayImageWithKeyword(null, "admin");
     ?>
 
     <div>

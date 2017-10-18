@@ -17,5 +17,5 @@ foreach ($checkBoxesName as $key => $line)
     }
 }
 
-header("Location:../user/userIndex.php?keywords=$keywordsSelected");
+header("Location:../index.php?keywords=$keywordsSelected");
 ?>
