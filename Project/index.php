@@ -18,8 +18,8 @@ $imageHandler = new ImageHandler($sqlService);
     <meta charset="UTF-8">
     <title>Catalogue</title>
 
-    <link type="text/css" href="css/bootstrap.css" rel="stylesheet">
-    <link type="text/css" href="css/project-style.css" rel="stylesheet">
+    <link type="text/css" href="./css/bootstrap.css" rel="stylesheet">
+    <link type="text/css" href="./css/project-style.css" rel="stylesheet">
 
 </head>
 <body>
@@ -74,7 +74,7 @@ $imageHandler = new ImageHandler($sqlService);
 
 
 <!-- JavaScript -->
-<script type="text/javascript" src="js/jquery.min.3.1.2.js"></script>
+<script type="text/javascript" src="./js/jquery.min.3.1.2.js"></script>
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 
 </body>
